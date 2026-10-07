@@ -1,0 +1,137 @@
+@font-face {
+  font-family: "Bebas Neue";
+  src: url("fonts/BebasNeue-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.smf-form {
+  --smf-blue: #4dafd8;
+  --smf-teal: #2a5e6f;
+  --smf-ink: #244754;
+  --smf-muted: #55707a;
+  --smf-line: #dce8ec;
+  box-sizing: border-box;
+  max-width: 880px;
+  margin: 40px auto;
+  overflow: hidden;
+  color: var(--smf-ink);
+  background: #fff;
+  border: 1px solid var(--smf-line);
+  border-radius: 24px;
+  box-shadow: 0 24px 65px -25px rgba(42, 94, 111, 0.28);
+  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+.smf-form *, .smf-form *::before, .smf-form *::after { box-sizing: border-box; }
+.smf-form [hidden] { display: none !important; }
+.smf-form p { margin: 0; }
+.smf-form button, .smf-form input, .smf-form textarea, .smf-form select { font: inherit; }
+.smf-form button { text-transform: none; letter-spacing: normal; }
+.smf-form :focus-visible { outline: 3px solid var(--smf-teal); outline-offset: 4px; }
+.smf-banner {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 52px 43px;
+  color: white;
+  background: var(--smf-teal);
+  isolation: isolate;
+}
+.smf-brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: 0.04em; }
+.smf-brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.58); border-radius: 50%; font-family: "Bebas Neue", Impact, sans-serif; font-size: 23px; line-height: 1; }
+.smf-banner-copy { position: relative; z-index: 1; max-width: 640px; margin-top: 38px; }
+.smf-form .smf-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.smf-banner .smf-eyebrow { color: #d7f1fc; }
+.smf-form h2 { margin: 12px 0 12px; color: white; font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-size: clamp(38px, 6vw, 62px); font-weight: 400; line-height: 1.05; letter-spacing: 0.018em; overflow-wrap: anywhere; }
+.smf-description { max-width: 610px; color: #eef8fc; font-size: 15px; line-height: 1.75; }
+.smf-banner-orbit { position: absolute; z-index: -1; right: -88px; top: -128px; width: 370px; height: 370px; border: 1px solid rgba(77,175,216,.55); border-radius: 50%; }
+.smf-banner-orbit::before { content: ""; position: absolute; inset: 22px; border: 1px solid rgba(77,175,216,.32); border-radius: 50%; }
+.smf-banner-orbit::after { content: ""; position: absolute; inset: 48px; border: 1px solid rgba(77,175,216,.22); border-radius: 50%; }
+.smf-body { padding: 36px 52px 28px; }
+.smf-progress-area { margin-bottom: 38px; }
+.smf-progress-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: var(--smf-muted); font-size: 12px; font-weight: 600; }
+.smf-progress-percent { color: var(--smf-teal); }
+.smf-progress { height: 5px; overflow: hidden; border-radius: 4px; background: #e7f0f4; }
+.smf-progress-fill { display: block; height: 100%; border-radius: inherit; background: var(--smf-blue); transition: width .25s ease; }
+.smf-question { min-width: 0; margin: 0 0 28px; padding: 0; border: 0; }
+.smf-question-title { display: flex; align-items: flex-start; gap: 14px; float: none; width: 100%; margin: 0 0 10px; padding: 0; color: var(--smf-ink); font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-size: 32px; font-weight: 400; line-height: 1.22; letter-spacing: 0.015em; overflow-wrap: anywhere; }
+.smf-question-title:focus { outline: none; }
+.smf-question-title:focus-visible { outline: 2px solid var(--smf-teal); outline-offset: 6px; border-radius: 2px; }
+.smf-question-number { flex-shrink: 0; margin-top: 6px; padding-top: 1px; color: var(--smf-teal); font-family: "Avenir Next", Avenir, sans-serif; font-size: 11px; font-weight: 700; line-height: 1.3; letter-spacing: 0.03em; border-top: 2px solid var(--smf-blue); }
+.smf-question-description { display: block; margin: 0 0 23px; color: var(--smf-muted); font-size: 14px; line-height: 1.65; }
+.smf-required-note { display: block; margin-top: 8px; font-size: 11px; letter-spacing: 0.05em; color: var(--smf-muted); }
+.smf-input { display: block; width: 100%; min-height: 56px; margin: 0; padding: 16px 18px; border: 1px solid #c5d9e1; border-radius: 10px; box-shadow: none; color: var(--smf-ink); background: #f9fcfd; font-size: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
+.smf-input::placeholder { color: #6d8791; opacity: 1; }
+.smf-input:focus { border-color: var(--smf-teal); outline: 0; box-shadow: 0 0 0 3px rgba(42,94,111,.18); background: #fff; }
+.smf-form textarea.smf-input { min-height: 154px; resize: vertical; line-height: 1.65; }
+.smf-select { cursor: pointer; padding-right: 36px; }
+.smf-choices { display: grid; gap: 10px; }
+.smf-choice { position: relative; display: flex; align-items: center; gap: 13px; min-height: 59px; margin: 0; padding: 16px 19px; border: 1px solid var(--smf-line); border-radius: 10px; color: var(--smf-ink); background: #fafcfd; cursor: pointer; font-size: 15px; line-height: 1.6; transition: background .15s, border-color .15s, box-shadow .15s; }
+.smf-choice:hover { border-color: #84c6e1; background: #f0f9fc; }
+.smf-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.smf-choice:has(input:checked) { border-color: var(--smf-blue); background: #ebf7fc; box-shadow: 0 0 0 1px var(--smf-blue); }
+.smf-choice:has(input:focus-visible) { outline: 3px solid var(--smf-teal); outline-offset: 3px; }
+.smf-choice-indicator { display: grid; place-items: center; flex-shrink: 0; width: 21px; height: 21px; border: 1.5px solid #a6c0cb; border-radius: 50%; background: #fff; }
+.smf-choice input[type="checkbox"] + .smf-choice-indicator { border-radius: 5px; }
+.smf-choice input:checked + .smf-choice-indicator { border-color: var(--smf-teal); background: var(--smf-teal); }
+.smf-choice input:checked + .smf-choice-indicator::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+.smf-choice input[type="checkbox"]:checked + .smf-choice-indicator::after { width: 6px; height: 10px; margin-top: -3px; border: solid #fff; border-width: 0 2px 2px 0; border-radius: 0; background: transparent; transform: rotate(45deg); }
+.smf-choice-text { overflow-wrap: anywhere; }
+.smf-rating { grid-template-columns: repeat(5, 1fr); }
+.smf-rating .smf-choice { display: grid; justify-items: center; min-height: 78px; padding: 14px 10px; font-size: 22px; font-weight: 600; }
+.smf-rating .smf-choice-indicator { display: none; }
+.smf-rating-hint { margin-top: 12px !important; color: var(--smf-muted); font-size: 12px; }
+.smf-selection-hint { margin-top: 12px !important; color: var(--smf-muted); font-size: 12px; }
+.smf-other { margin-top: 18px; }
+.smf-other label { display: block; margin-bottom: 8px; color: var(--smf-ink); font-size: 14px; font-weight: 600; }
+.smf-navigation { display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-top: 32px; }
+.smf-button { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 52px; margin: 0; padding: 13px 24px; border: 1px solid transparent; border-radius: 9px; background: var(--smf-teal); color: #fff; box-shadow: none; cursor: pointer; font-size: 14px; font-weight: 600; line-height: 1.6; transition: background .15s, transform .15s; }
+.smf-button:hover, .smf-button:focus { background: #204b59; color: #fff; }
+.smf-button:active { transform: translateY(1px); }
+.smf-button-back { margin-right: auto; padding-left: 0; color: var(--smf-muted); background: transparent; }
+.smf-button-back:hover, .smf-button-back:focus { color: var(--smf-teal); background: transparent; }
+.smf-button span { font-size: 20px; font-weight: 400; }
+.smf-button:disabled { cursor: wait; opacity: .65; }
+.smf-keyboard-hint { margin-top: 19px !important; color: var(--smf-muted); font-size: 11px; line-height: 1.6; text-align: right; }
+.smf-field-error { margin-top: 10px !important; color: #a32929; font-size: 13px; }
+.smf-invalid .smf-input, .smf-invalid .smf-choice { border-color: #b24040; }
+.smf-status { margin-top: 20px !important; color: var(--smf-muted); font-size: 14px; }
+.smf-status:empty { margin: 0 !important; }
+.smf-status-error { color: #a32929; }
+.smf-privacy { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 32px !important; padding-top: 20px; border-top: 1px solid var(--smf-line); color: var(--smf-muted); font-size: 11px; line-height: 1.6; }
+.smf-privacy svg { flex-shrink: 0; width: 13px; height: 13px; }
+.smf-success, .smf-empty { padding: 22px 0 36px; text-align: center; }
+.smf-success-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%; background: #eaf7fb; color: var(--smf-teal); font-size: 28px; }
+.smf-success .smf-eyebrow, .smf-empty .smf-eyebrow { color: var(--smf-teal); }
+.smf-form .smf-success h3, .smf-form .smf-empty h3 { margin: 12px 0 14px; color: var(--smf-ink); font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-size: 40px; font-weight: 400; line-height: 1.15; letter-spacing: 0.015em; }
+.smf-success-message, .smf-empty p { color: var(--smf-muted); font-size: 15px; }
+.smf-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.smf-noscript { padding: 15px; border: 1px solid #c5d9e1; border-radius: 8px; background: #f0f9fc; }
+.smf-form:not(.smf-enhanced) .smf-question-form { display: none; }
+.smf-form:not(.smf-enhanced) .smf-progress-area { display: none; }
+
+@media (max-width: 600px) {
+  .smf-form { margin: 20px auto; border-radius: 16px; }
+  .smf-banner { padding: 27px 25px 32px; }
+  .smf-banner-copy { margin-top: 30px; }
+  .smf-banner-orbit { right: -170px; }
+  .smf-body { padding: 28px 25px 23px; }
+  .smf-progress-area { margin-bottom: 29px; }
+  .smf-question-title { gap: 11px; font-size: 29px; }
+  .smf-question-description { margin-bottom: 20px; }
+  .smf-choice { padding: 14px; }
+  .smf-rating { gap: 7px; }
+  .smf-rating .smf-choice { min-height: 64px; padding: 10px 5px; font-size: 20px; }
+  .smf-navigation { gap: 8px; margin-top: 27px; }
+  .smf-button { gap: 12px; padding: 12px 18px; font-size: 13px; }
+  .smf-button-back { padding-left: 0; padding-right: 6px; }
+  .smf-privacy { align-items: flex-start; text-align: center; }
+  .smf-privacy svg { margin-top: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .smf-form *, .smf-form *::before, .smf-form *::after { transition: none !important; }
+}

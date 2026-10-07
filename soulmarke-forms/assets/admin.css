@@ -1,0 +1,185 @@
+@font-face {
+    font-family: 'Soulmarke Bebas';
+    src: url('fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+.soulmarke-admin {
+    --sm-blue: #4dafd8;
+    --sm-teal: #2a5e6f;
+    --sm-ink: #244753;
+    --sm-muted: #586b73;
+    --sm-line: #dce6e9;
+    max-width: 1320px;
+    margin: 24px 24px 32px 4px;
+    color: var(--sm-ink);
+    font-family: Avenir, 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.soulmarke-admin *, .soulmarke-admin *::before, .soulmarke-admin *::after { box-sizing: border-box; }
+.soulmarke-admin [hidden] { display: none !important; }
+.soulmarke-admin h2 { margin: 0 0 12px; color: var(--sm-teal); font-family: 'Soulmarke Bebas', Impact, sans-serif; font-weight: 400; font-size: 26px; line-height: 1.3; letter-spacing: .2px; }
+.soulmarke-admin h3 { color: var(--sm-teal); font-size: 16px; line-height: 1.45; }
+.soulmarke-admin p { margin: 8px 0 14px; font-size: inherit; }
+.soulmarke-admin a { color: #25617b; }
+.soulmarke-admin a:focus-visible, .soulmarke-admin button:focus-visible, .soulmarke-admin input:focus-visible, .soulmarke-admin select:focus-visible, .soulmarke-admin textarea:focus-visible { outline: 2px solid var(--sm-blue); outline-offset: 3px; box-shadow: none; }
+.soulmarke-admin .button { border-radius: 6px; border-color: #aac1ca; color: var(--sm-teal); min-height: 36px; padding: 3px 14px; box-shadow: none; }
+.soulmarke-admin .button-primary { background: var(--sm-teal); border-color: var(--sm-teal); color: white; }
+.soulmarke-admin .button-primary:hover { background: #224d5c; border-color: #224d5c; color: white; }
+.soulmarke-admin .button[disabled] { opacity: .6; }
+.soulmarke-admin .button-hero { padding: 10px 24px; }
+.soulmarke-admin .sm-muted { color: var(--sm-muted); font-size: 13px; }
+.soulmarke-admin .sm-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin: 0 0 12px; }
+.soulmarke-admin .sm-admin-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding: 30px 36px; border-radius: 12px; background: var(--sm-teal); color: white; border-top: 5px solid var(--sm-blue); }
+.soulmarke-admin .sm-admin-header h1 { margin: 0; padding: 0; font-family: 'Soulmarke Bebas', Impact, sans-serif; font-size: clamp(32px, 3.5vw, 48px); line-height: 1.1; letter-spacing: .5px; color: white; }
+.soulmarke-admin .sm-admin-header p:last-child { margin: 12px 0 0; max-width: 760px; color: #e3f0f5; }
+.soulmarke-admin .sm-private { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; margin-top: 6px; border: 1px solid #648692; border-radius: 30px; padding: 7px 11px; font-size: 11px; }
+.soulmarke-admin .sm-private .dashicons { font-size: 16px; width: 16px; height: 16px; }
+.soulmarke-admin .sm-admin-tabs { display: flex; gap: 25px; border-bottom: 1px solid #cbdde3; margin: 14px 0 25px; overflow-x: auto; }
+.soulmarke-admin .sm-admin-tabs a { text-decoration: none; padding: 13px 0; white-space: nowrap; font-weight: 600; border-bottom: 3px solid transparent; }
+.soulmarke-admin .sm-admin-tabs a.is-active { border-color: var(--sm-blue); color: var(--sm-teal); }
+.soulmarke-admin .notice { margin: 16px 0; }
+.soulmarke-admin .sm-card { background: white; border: 1px solid var(--sm-line); border-radius: 10px; padding: 25px; margin-bottom: 22px; }
+.soulmarke-admin .sm-filter-form { padding: 19px; background: #eaf1f4; border: 1px solid var(--sm-line); border-radius: 9px; margin-bottom: 20px; }
+.soulmarke-admin .sm-filter-fields { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.soulmarke-admin .sm-filter-fields label { display: flex; flex-direction: column; gap: 5px; font-weight: 600; min-width: 155px; }
+.soulmarke-admin .sm-filter-fields label .sm-muted { display: inline; font-weight: normal; }
+.soulmarke-admin .sm-filter-search { flex: 1; min-width: 190px !important; }
+.soulmarke-admin .sm-filter-fields input { width: 100%; margin: 0; min-height: 36px; border-color: #b9cdd4; border-radius: 5px; }
+.soulmarke-admin .sm-filter-summary { color: var(--sm-muted); font-size: 13px; margin: -7px 0 20px; }
+.soulmarke-admin .sm-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 18px; margin: 22px 0 30px; }
+.soulmarke-admin .sm-stat { background: white; border: 1px solid var(--sm-line); border-radius: 10px; padding: 24px 26px; display: flex; flex-direction: column; gap: 12px; }
+.soulmarke-admin .sm-stat > span { color: var(--sm-muted); font-size: 13px; }
+.soulmarke-admin .sm-stat > strong { font-family: 'Soulmarke Bebas', Impact, sans-serif; font-weight: 400; line-height: 1; font-size: 48px; color: var(--sm-teal); }
+.soulmarke-admin .sm-stat-guide { background: #e6f3f9; border-color: #c4e3f0; }
+.soulmarke-admin .sm-stat-guide code { font-size: 17px; background: white; width: fit-content; padding: 6px 10px; border-radius: 5px; }
+.soulmarke-admin .sm-stat-guide p { margin: 0; font-size: 12px; }
+.soulmarke-admin .sm-section-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; margin: 24px 0 16px; }
+.soulmarke-admin .sm-section-heading h2 { margin: 0; }
+.soulmarke-admin .sm-section-heading p { margin-bottom: 0; }
+.soulmarke-admin .sm-export { display: inline-flex; align-items: center; gap: 7px; }
+.soulmarke-admin .sm-export .dashicons { font-size: 17px; height: 17px; width: 17px; }
+.soulmarke-admin .sm-activity { overflow: hidden; }
+.soulmarke-admin .sm-activity > p { margin-top: 0; }
+.soulmarke-admin .sm-daily-chart { display: flex; gap: 9px; overflow-x: auto; padding: 4px 0 6px; }
+.soulmarke-admin .sm-daily-column { flex: 1; min-width: 32px; max-width: 70px; text-align: center; }
+.soulmarke-admin .sm-daily-count { font-size: 11px; color: var(--sm-muted); }
+.soulmarke-admin .sm-daily-track { height: 145px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--sm-line); padding: 0 4px; }
+.soulmarke-admin .sm-daily-bar { display: block; width: 100%; border-radius: 5px 5px 0 0; background: var(--sm-blue); }
+.soulmarke-admin .sm-daily-date { display: block; margin-top: 6px; font-size: 10px; white-space: nowrap; color: var(--sm-muted); }
+.soulmarke-admin .sm-insights-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.soulmarke-admin .sm-question-insight { margin: 0; }
+.soulmarke-admin .sm-insight-heading { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.soulmarke-admin .sm-insight-heading h3 { margin: 0; }
+.soulmarke-admin .sm-response-count { color: var(--sm-muted); font-size: 11px; }
+.soulmarke-admin .sm-average { font-size: 13px; color: var(--sm-muted); }
+.soulmarke-admin .sm-average strong { display: inline-block; padding-right: 7px; font-size: 31px; line-height: 1; color: var(--sm-teal); }
+.soulmarke-admin .sm-distribution { margin: 15px 0; }
+.soulmarke-admin .sm-distribution > div:first-child { display: flex; justify-content: space-between; gap: 15px; font-size: 12px; }
+.soulmarke-admin .sm-distribution strong { flex-shrink: 0; font-size: 12px; }
+.soulmarke-admin .sm-meter { height: 7px; margin-top: 6px; border-radius: 5px; background: #edf3f5; overflow: hidden; }
+.soulmarke-admin .sm-meter span { display: block; height: 100%; background: var(--sm-blue); border-radius: 5px; }
+.soulmarke-admin .sm-text-samples { margin: 0; padding: 0; list-style: none; }
+.soulmarke-admin .sm-text-samples li { padding: 11px 0; border-bottom: 1px solid #edf2f4; overflow-wrap: anywhere; white-space: pre-wrap; }
+.soulmarke-admin .sm-text-samples li:last-child { border-bottom: none; }
+.soulmarke-admin .sm-empty { border: 1px dashed #b5cbd5; border-radius: 12px; background: white; text-align: center; padding: 50px 25px; margin: 20px 0; }
+.soulmarke-admin .sm-empty > .dashicons { color: var(--sm-blue); font-size: 38px; width: 38px; height: 38px; margin-bottom: 20px; }
+.soulmarke-admin .sm-empty h2 { margin-bottom: 10px; }
+.soulmarke-admin .sm-empty p { color: var(--sm-muted); max-width: 580px; margin: 10px auto 22px; }
+.soulmarke-admin .sm-table-wrap { border-radius: 9px; overflow-x: auto; border: 1px solid var(--sm-line); background: white; }
+.soulmarke-admin table { width: 100%; border: 0; border-collapse: collapse; }
+.soulmarke-admin table td, .soulmarke-admin table th { padding: 17px; color: var(--sm-ink); vertical-align: top; font-size: 13px; text-align: left; border-bottom: 1px solid #e6edf0; overflow-wrap: anywhere; }
+.soulmarke-admin table th { font-weight: 600; }
+.soulmarke-admin table thead th { background: #f0f5f7; color: var(--sm-teal); }
+.soulmarke-admin table tr:last-child td, .soulmarke-admin table tr:last-child th { border-bottom: 0; }
+.soulmarke-admin .sm-submissions-table { min-width: 750px; }
+.soulmarke-admin .sm-submissions-table td:first-child { width: 45px; }
+.soulmarke-admin .sm-submissions-table td:last-child { width: 145px; }
+.soulmarke-admin .sm-row-id { display: block; font-size: 11px; color: var(--sm-muted); margin-top: 4px; font-weight: normal; }
+.soulmarke-admin .sm-status { display: inline-block; padding: 4px 9px; border-radius: 5px; font-size: 11px; line-height: 1.4; background: #edf1f3; color: #52666e; }
+.soulmarke-admin .sm-status-sent { background: #e7f3ed; color: #286442; }
+.soulmarke-admin .sm-status-failed { background: #fff0eb; color: #993c29; }
+.soulmarke-admin .sm-compare-toolbar { display: flex; align-items: center; gap: 16px; margin: 20px 0; flex-wrap: wrap; }
+.soulmarke-admin .sm-form-feedback { color: #a33625; font-size: 12px; }
+.soulmarke-admin .sm-pagination { display: flex; justify-content: flex-end; align-items: center; gap: 15px; margin-top: 20px; }
+.soulmarke-admin .sm-pagination span { font-size: 12px; color: var(--sm-muted); }
+.soulmarke-admin .sm-back-link { text-decoration: none; font-weight: 600; }
+.soulmarke-admin .sm-detail-header { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.soulmarke-admin .sm-detail-header h2 { margin: 0; overflow-wrap: anywhere; }
+.soulmarke-admin .sm-detail-header .sm-eyebrow { color: var(--sm-muted); }
+.soulmarke-admin .sm-detail-header p:last-child { margin-bottom: 0; font-size: 12px; color: var(--sm-muted); }
+.soulmarke-admin .sm-answers dl { margin: 0; }
+.soulmarke-admin .sm-answer-row { padding: 20px 0; border-bottom: 1px solid var(--sm-line); }
+.soulmarke-admin .sm-answer-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.soulmarke-admin .sm-answer-row dt { font-weight: 600; margin-bottom: 8px; }
+.soulmarke-admin .sm-answer-row dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.soulmarke-admin .sm-detail-actions { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 15px; }
+.soulmarke-admin .sm-danger-button { color: #9b3528; border-color: #d9bbb6; }
+.soulmarke-admin .sm-picker-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.soulmarke-admin .sm-picker-grid label { display: flex; flex-direction: column; gap: 7px; font-weight: 600; }
+.soulmarke-admin .sm-picker-grid select { width: 100%; max-width: 100%; min-height: 40px; border-color: #b9cdd4; }
+.soulmarke-admin .sm-comparison-table { table-layout: fixed; min-width: 700px; }
+.soulmarke-admin .sm-comparison-table th:first-child { width: 25%; }
+.soulmarke-admin .sm-comparison-table th a { text-decoration: none; }
+.soulmarke-admin .sm-comparison-table .sm-different { background: #edf7fb; }
+.soulmarke-admin .sm-difference-label { display: block; margin-top: 10px; color: #27627c; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; font-weight: 700; }
+.soulmarke-admin .sm-comparison-answer { display: block; white-space: pre-wrap; }
+.soulmarke-admin .sm-snapshot-label { display: block; font-size: 11px; color: var(--sm-muted); font-style: italic; margin-bottom: 9px; }
+.soulmarke-admin .sm-shortcode-guide { display: flex; align-items: center; justify-content: space-between; background: #e8f4fa; border-color: #c5e0eb; gap: 24px; }
+.soulmarke-admin .sm-shortcode-guide h2 { margin-bottom: 7px; font-size: 19px; }
+.soulmarke-admin .sm-shortcode-guide p { margin: 0; }
+.soulmarke-admin .sm-shortcode-guide > .dashicons { color: #438ba9; width: 36px; height: 36px; font-size: 36px; flex-shrink: 0; }
+.soulmarke-admin .sm-settings-section { max-width: 900px; }
+.soulmarke-admin .sm-field { display: flex; flex-direction: column; gap: 7px; margin: 17px 0; }
+.soulmarke-admin .sm-field > span { font-weight: 600; font-size: 13px; }
+.soulmarke-admin .sm-field input, .soulmarke-admin .sm-field textarea, .soulmarke-admin .sm-field select { width: 100%; max-width: 100%; min-height: 40px; margin: 0; border: 1px solid #b9cdd4; border-radius: 5px; padding: 7px 10px; color: var(--sm-ink); background-color: white; font: inherit; font-size: 14px; }
+.soulmarke-admin .sm-field select { padding-right: 30px; }
+.soulmarke-admin .sm-field textarea { resize: vertical; }
+.soulmarke-admin .sm-field small { font-size: 12px; color: var(--sm-muted); }
+.soulmarke-admin #sm-question-list { max-width: 900px; }
+.soulmarke-admin .sm-question-editor { background: white; border: 1px solid var(--sm-line); border-left: 4px solid var(--sm-blue); border-radius: 9px; padding: 22px 25px; margin-bottom: 20px; }
+.soulmarke-admin .sm-question-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.soulmarke-admin .sm-question-toolbar > div { display: flex; gap: 6px; }
+.soulmarke-admin .sm-question-toolbar .button { min-height: 31px; padding: 0 10px; }
+.soulmarke-admin .sm-question-number { font-family: 'Soulmarke Bebas', Impact, sans-serif; font-size: 24px; line-height: 1; color: var(--sm-teal); }
+.soulmarke-admin .sm-remove-question { color: #935048; }
+.soulmarke-admin .sm-question-properties { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; align-items: center; }
+.soulmarke-admin .sm-required { display: flex; gap: 8px; align-items: center; font-size: 13px; padding-top: 20px; }
+.soulmarke-admin .sm-required input { margin: 0; }
+.soulmarke-admin .sm-max-selections input { max-width: 160px; }
+.soulmarke-admin .sm-save-bar { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; margin-top: 25px; padding: 24px; background: #e4edf1; border-radius: 9px; }
+.soulmarke-admin .sm-save-bar > p { flex: 1; margin: 0; min-width: 200px; color: var(--sm-muted); font-size: 13px; }
+.soulmarke-admin .sm-editor-status { font-size: 12px; color: var(--sm-teal); }
+.soulmarke-admin .sm-admin-footer { color: var(--sm-muted); border-top: 1px solid var(--sm-line); margin-top: 32px; padding-top: 18px; font-size: 11px; }
+
+@media (max-width: 1024px) {
+    .soulmarke-admin .sm-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .soulmarke-admin .sm-stat-guide { grid-column: 1 / -1; }
+    .soulmarke-admin .sm-picker-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+    .soulmarke-admin { margin: 15px 10px 20px 0; }
+    .soulmarke-admin .sm-admin-header { flex-direction: column; padding: 25px; gap: 16px; }
+    .soulmarke-admin .sm-private { margin: 0; }
+    .soulmarke-admin .sm-admin-tabs { gap: 19px; }
+    .soulmarke-admin .sm-insights-grid { grid-template-columns: 1fr; }
+    .soulmarke-admin .sm-stat { padding: 20px; }
+    .soulmarke-admin .sm-stat > strong { font-size: 40px; }
+    .soulmarke-admin .sm-card { padding: 20px; }
+    .soulmarke-admin .sm-detail-header { flex-direction: column; align-items: flex-start; }
+    .soulmarke-admin .sm-question-editor { padding: 20px 16px; }
+    .soulmarke-admin .sm-question-properties { grid-template-columns: 1fr; gap: 0; }
+    .soulmarke-admin .sm-required { padding: 0 0 10px; }
+    .soulmarke-admin .sm-save-bar { padding: 20px; }
+    .soulmarke-admin .sm-filter-fields label { min-width: 0; width: 100%; }
+    .soulmarke-admin .sm-shortcode-guide > .dashicons { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .soulmarke-admin * { scroll-behavior: auto; }
+}
