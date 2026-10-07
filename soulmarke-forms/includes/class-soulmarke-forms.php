@@ -322,11 +322,33 @@ class Soulmarke_Forms
         if (empty($settings['recipients'])) {
             return 'not_configured';
         }
+        $record = self::get_submission($id);
+        if (!$record) {
+            return 'failed';
+        }
         $subject = '[' . wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES) . '] New survey submission #' . $id;
         $url = add_query_arg(array('page' => 'soulmarke-submissions', 'submission' => $id), admin_url('admin.php'));
-        $message = 'A new submission was received for ' . $settings['title'] . ".\n\n"
-            . 'View the private submission in WordPress (administrator login required):' . "\n" . $url . "\n\n"
-            . 'Notification recipients can be changed in Soulmarke Forms settings.';
+        $message = $settings['title'] . "\n"
+            . 'Submission #' . $id . "\n"
+            . 'Submitted: ' . get_date_from_gmt($record['submitted_at'], 'F j, Y g:i a') . ' (' . wp_timezone_string() . ")\n\n";
+        foreach ($record['questions'] as $index => $question) {
+            $question_id = $question['id'];
+            $answer = isset($record['answers'][$question_id]) ? $record['answers'][$question_id] : '';
+            $message .= ($index + 1) . '. ' . $question['title'] . "\n";
+            if ($answer === '' || $answer === array()) {
+                $message .= 'Answer: No answer provided';
+            } elseif (is_array($answer)) {
+                $message .= "Answers:\n- " . implode("\n- ", $answer);
+            } else {
+                $message .= 'Answer: ' . $answer;
+            }
+            if (isset($record['other_answers'][$question_id]) && $record['other_answers'][$question_id] !== '') {
+                $message .= "\nAdditional detail: " . $record['other_answers'][$question_id];
+            }
+            $message .= "\n\n";
+        }
+        $message .= 'View the private submission in WordPress (administrator login required):' . "\n" . $url . "\n\n"
+            . 'Notification recipients can be changed in Holistic Collective Forms settings.';
         $sent = true;
         foreach ($settings['recipients'] as $recipient) {
             if (!wp_mail($recipient, $subject, $message, array('Content-Type: text/plain; charset=UTF-8'))) {

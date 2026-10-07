@@ -11,6 +11,7 @@ import argparse
 import base64
 import copy
 import csv
+import datetime
 import http.cookiejar
 import io
 import json
@@ -23,6 +24,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+import zoneinfo
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -159,7 +161,66 @@ def main():
             answers[question['id']] = (question['options'][:2] if question['type'] == 'checkbox'
                                       else question['options'][0] if question['options'] else '=1+2 ' + run)
         human_search_terms = ('José practices Reiki', '"calm healing"', r'C:\holistic\practice')
-        answers['q_14'] += ' · ' + ' · '.join(human_search_terms)
+        # Cover an optional blank and preserve real respondent text, including
+        # Unicode, quotes, backslashes and line breaks, through HTTP and email.
+        answers['q_02'] = ''
+        answers['q_14'] += ' · ' + ' · '.join(human_search_terms) + '\nSecond line: "whole person" and C:\\care\\notes'
+
+        def notification_messages(submission_id):
+            return [item for item in mail()
+                    if re.search(r'#' + str(submission_id) + r'\b', item['subject'])
+                    and item.get('capture_run') == run]
+
+        def complete_results(messages, record, form_title):
+            # Test the actual outgoing wp_mail payload, rather than calling or
+            # mirroring the notification formatter. Never print private bodies.
+            zone_name = probe_state['site_timezone']
+            offset = re.fullmatch(r'([+-])(\d{2}):(\d{2})', zone_name)
+            if offset:
+                minutes = (int(offset[2]) * 60 + int(offset[3])) * (-1 if offset[1] == '-' else 1)
+                site_zone = datetime.timezone(datetime.timedelta(minutes=minutes))
+            else:
+                site_zone = zoneinfo.ZoneInfo(zone_name)
+            stamp = datetime.datetime.fromisoformat(record['submitted_at']).replace(tzinfo=datetime.timezone.utc).astimezone(site_zone)
+            expected_time = (stamp.strftime('%B ') + str(stamp.day) + stamp.strftime(', %Y ')
+                             + str(stamp.hour % 12 or 12) + stamp.strftime(':%M ')
+                             + ('am' if stamp.hour < 12 else 'pm') + ' (' + zone_name + ')')
+            for message in messages:
+                body = message.get('message', '')
+                if not body.startswith(form_title + '\n') or 'Submission #' + str(record['id']) not in body:
+                    return False
+                if 'Submitted: ' + expected_time not in body or '/wp-admin/admin.php?page=soulmarke-submissions' not in body:
+                    return False
+                if 'submission=' + str(record['id']) not in body:
+                    return False
+                for index, question in enumerate(record['questions']):
+                    start = str(index + 1) + '. ' + question['title'] + '\n'
+                    if start not in body:
+                        return False
+                    section = body.split(start, 1)[1]
+                    if index + 1 < len(record['questions']):
+                        next_question = record['questions'][index + 1]
+                        section = section.split(str(index + 2) + '. ' + next_question['title'] + '\n', 1)[0]
+                    value = record['answers'].get(question['id'], '')
+                    if not value:
+                        if 'Answer: No answer provided' not in section:
+                            return False
+                    elif isinstance(value, list):
+                        if 'Answers:\n' not in section or not all('\n- ' + option + '\n' in '\n' + section for option in value):
+                            return False
+                    elif 'Answer: ' + str(value) not in section:
+                        return False
+                    other_values = record['other_answers'] if isinstance(record['other_answers'], dict) else {}
+                    other = other_values.get(question['id'])
+                    if other and 'Additional detail: ' + other not in section:
+                        return False
+            return bool(messages)
+
+        probe_state = helper('mail_probe')
+        probes = [item for item in mail() if item['subject'] == 'Local integration capture probe ' + run]
+        check(len(probes) == 1 and 'message' not in probes[0] and 'capture_run' not in probes[0],
+              'Opt-in local capture excludes unrelated mail bodies even during an active integration run')
+        check(probe_state['mail_log_private'], 'Local mail capture remains private outside the web root with mode 0600')
 
         def submit(values=None, others=None, override=None, client=anonymous):
             fields = {'action': 'soulmarke_submit', 'nonce': nonce, 'website': '',
@@ -200,6 +261,13 @@ def main():
         recipients = [address for item in notifications for address in item['recipients']]
         check(sorted(recipients, key=str.lower) == sorted(settings['recipients'], key=str.lower),
               'Notification sent separately to both configured recipients through intercepted wp_mail')
+        original_notifications = notification_messages(first['id'])
+        check(len(original_notifications) == len(settings['recipients'])
+              and complete_results(original_notifications, first, settings['title']),
+              'Each default recipient receives the form title, submission details and all 14 original questions with readable answers')
+        check(all('Answer: No answer provided' in item['message'] and answers['q_14'] in item['message']
+                  for item in original_notifications),
+              'Notification includes an explicit optional blank and preserves Unicode, quotes, backslashes and multiline answers')
         # Search uses what administrators read, rather than the encoded JSON
         # stored in the database. Exercise Unicode, quotes, and backslashes
         # through the actual listing and its linked filtered CSV export.
@@ -309,7 +377,7 @@ def main():
                   'A question made required in wp-admin is enforced against direct submissions')
             third_answers = copy.deepcopy(answers)
             third_answers['q_10'] = ['Other']
-            third_others = {'q_10': '+1+2 ' + run}
+            third_others = {'q_10': '+1+2 ' + run + '\nJosé "care" C:\\practice\\notes'}
             status, _, _, _ = submit(third_answers, third_others)
             check(status == 200, 'Submission succeeds after administrator settings changes')
             records = helper('state')['records']
@@ -326,6 +394,19 @@ def main():
                   'Cross-version comparison displays the original wording of edited questions')
             notifications = [item for item in mail() if re.search(r'#' + str(third['id']) + r'\b', item['subject'])]
             check([address for item in notifications for address in item['recipients']] == updated['recipients'], 'Future notifications use the edited recipient list')
+            third_notifications = notification_messages(third['id'])
+            check(len(third_notifications) == len(updated['recipients'])
+                  and complete_results(third_notifications, third, updated['title'])
+                  and all(updated['questions'][0]['title'] in item['message']
+                          and 'Additional detail: ' + third_others['q_10'] in item['message']
+                          for item in third_notifications),
+                  'Edited recipients receive updated question wording and the complete Other selection detail')
+            historical_notifications = notification_messages(first['id'])
+            check(historical_notifications == original_notifications
+                  and complete_results(historical_notifications, old_record, settings['title'])
+                  and all(updated['questions'][0]['title'] not in item['message']
+                          for item in historical_notifications),
+                  'Later question edits leave previously sent notification wording and answers unchanged')
             metrics = helper('analytics')['questions']
             q1_metrics = [metric for metric in metrics if metric['id'] == 'q_01']
             check(len(q1_metrics) == 2 and sorted(metric['responses'] for metric in q1_metrics) == [1, 2],
@@ -410,16 +491,21 @@ def main():
         print('FAIL after ' + str(count) + ' checks: ' + str(error), file=sys.stderr, flush=True)
         return 1
     finally:
+        cleanup_failed = False
         if begun:
             try:
                 cleanup = helper('cleanup')
-                if cleanup['remaining_records']:
-                    print('Fixture cleanup left marked records.', file=sys.stderr)
+                if cleanup['remaining_records'] or cleanup['remaining_mail_bodies'] or not cleanup['capture_restored']:
+                    cleanup_failed = True
+                    print('Fixture cleanup did not fully restore this run’s records, mail bodies or capture option.', file=sys.stderr)
                 else:
-                    print('Cleanup: original settings/timezone restored; only this run’s fixtures removed.', flush=True)
+                    print('Cleanup: original settings/timezone/capture option restored; only this run’s fixtures and mail bodies removed.', flush=True)
             except Exception as error:
+                cleanup_failed = True
                 print('Fixture cleanup failed: ' + str(error), file=sys.stderr)
         subprocess.run(['docker', 'exec', options.wp_container, 'rm', '-f', helper_path], capture_output=True)
+        if cleanup_failed:
+            return 1
 
 
 if __name__ == '__main__':

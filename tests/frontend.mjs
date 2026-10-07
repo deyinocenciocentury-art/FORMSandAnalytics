@@ -13,6 +13,22 @@ page.on('pageerror', (error) => failures.push(error.message));
 const form = page.locator('.smf-form').first();
 const current = () => form.locator('.smf-question:visible');
 const next = () => form.locator('.smf-button-next').click();
+const teal = 'rgb(42, 94, 111)';
+const blue = 'rgb(77, 175, 216)';
+const white = 'rgb(255, 255, 255)';
+const assertButtonPalette = async (button, background = teal, foreground = white) => {
+  const styles = await button.evaluate((element) => {
+    const computed = getComputedStyle(element);
+    return { background: computed.backgroundColor, foreground: computed.color, image: computed.backgroundImage };
+  });
+  assert.deepEqual(styles, { background, foreground, image: 'none' }, 'survey buttons retain the brand palette over theme colors and gradients');
+};
+const assertValidationPalette = async () => {
+  assert.equal(await current().locator('.smf-field-error').evaluate((element) => getComputedStyle(element).color), teal, 'validation text uses teal');
+  await page.waitForFunction(() => Array.from(document.querySelectorAll('.smf-form .smf-question:not([hidden]) .smf-choice, .smf-form .smf-question:not([hidden]) .smf-input')).every((element) => getComputedStyle(element).borderTopColor === 'rgb(42, 94, 111)'));
+  const borders = await current().locator('.smf-choice, .smf-input').evaluateAll((elements) => elements.map((element) => getComputedStyle(element).borderTopColor));
+  assert.ok(borders.length > 0 && borders.every((color) => color === teal), 'invalid answer borders use teal');
+};
 
 try {
   await page.goto(url, { waitUntil: 'networkidle' });
@@ -21,6 +37,23 @@ try {
   assert.equal(await current().getAttribute('data-question-id'), 'q_01');
   const publicConfiguration = await form.locator('.smf-config').textContent();
   assert.ok(!publicConfiguration.includes('recipients') && !publicConfiguration.includes('@soulmarke.com'), 'notification recipients remain private');
+  assert.ok(!/soulmarke/i.test(await form.innerText()), 'the public survey contains no Soulmarke name');
+  assert.equal(await form.locator('.smf-brand, .smf-brand-mark').count(), 0, 'the Soulmarke logo and S badge are removed');
+  assert.equal(await form.locator('.smf-banner h2').innerText(), 'Holistic Collective Practitioner Discovery Survey', 'the actual survey title remains');
+  await form.evaluate((element) => element.parentElement.classList.add('entry-content'));
+  await page.addStyleTag({ content: '.entry-content button, .entry-content button:hover, .entry-content button:focus { background: red; background-image: linear-gradient(red, orange); color: red; border-color: red; } .entry-content button:focus-visible { outline: 3px solid red; }' });
+  const continueButton = form.locator('.smf-button-next');
+  await assertButtonPalette(continueButton);
+  await continueButton.hover();
+  await assertButtonPalette(continueButton);
+  await page.waitForFunction(() => getComputedStyle(document.querySelector('.smf-form .smf-button-next')).borderTopColor === 'rgb(77, 175, 216)');
+  assert.equal(await continueButton.evaluate((element) => getComputedStyle(element).borderTopColor), blue, 'primary button hover uses the supplied blue accent');
+  await page.keyboard.press('Tab');
+  await continueButton.focus();
+  await assertButtonPalette(continueButton);
+  assert.equal(await continueButton.evaluate((element) => getComputedStyle(element).outlineColor), teal, 'keyboard focus remains visible in the brand palette');
+  await continueButton.evaluate((element) => element.blur());
+  await page.mouse.move(0, 0);
   await form.screenshot({ path: '/tmp/soulmarke-desktop.png' });
 
   await current().locator('.smf-choice').last().click();
@@ -28,9 +61,11 @@ try {
   await next();
   assert.equal(await current().getAttribute('data-question-id'), 'q_01', 'Other detail is required when selected');
   assert.ok(await current().locator('.smf-field-error').isVisible());
+  await assertValidationPalette();
   await current().locator('.smf-other-input').fill('Frontend browser test: peer-led partnerships');
   await next();
   assert.equal(await current().getAttribute('data-question-id'), 'q_02');
+  await assertButtonPalette(form.locator('.smf-button-back'), white, teal);
   await form.locator('.smf-button-back').click();
   assert.equal(await current().locator('.smf-other-input').inputValue(), 'Frontend browser test: peer-led partnerships', 'Back preserves answers');
   await current().locator('.smf-choice').first().click();
@@ -69,6 +104,8 @@ try {
     const payload = new URLSearchParams(route.request().postData() || '');
     if (payload.get('action') === 'soulmarke_submit' && injectError) {
       injectError = false;
+      assert.equal(await form.locator('.smf-button-submit').isDisabled(), true, 'submitting disables the primary button');
+      await assertButtonPalette(form.locator('.smf-button-submit'));
       await route.fulfill({ status: 422, contentType: 'application/json', body: JSON.stringify({ success: false, data: { message: 'Please review the highlighted answer.', errors: { q_01: 'Review your first answer.' } } }) });
     } else await route.continue();
   });
@@ -77,6 +114,8 @@ try {
   assert.equal(await current().locator('.smf-answer-control').first().isEnabled(), true, 'server validation error restores enabled controls');
   assert.equal(await page.evaluate(() => document.activeElement?.classList.contains('smf-answer-control')), true, 'server validation error focuses its control');
   assert.ok(await current().locator('.smf-field-error').isVisible());
+  await assertValidationPalette();
+  assert.equal(await form.locator('.smf-status-error').evaluate((element) => getComputedStyle(element).color), teal, 'submission error status uses teal');
   for (let question = 1; question < 14; question += 1) await next();
   const realSubmission = page.waitForResponse((response) => response.url().includes('/wp-admin/admin-ajax.php') && response.request().postData()?.includes('action=soulmarke_submit'));
   await form.locator('.smf-button-submit').click();
@@ -96,12 +135,14 @@ try {
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true });
   mobile.on('pageerror', (error) => failures.push(error.message));
   await mobile.goto(url, { waitUntil: 'networkidle' });
+  assert.ok(!/soulmarke/i.test(await mobile.locator('.smf-form').innerText()), 'the mobile survey contains no Soulmarke name');
+  await assertButtonPalette(mobile.locator('.smf-button-next'));
   assert.equal(await mobile.locator('.smf-question:visible').count(), 1);
   assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true, 'mobile page has no horizontal overflow');
   assert.equal(await mobile.locator('.smf-form').evaluate((element) => element.scrollWidth <= element.clientWidth + 1), true, 'mobile form has no horizontal overflow');
   await mobile.locator('.smf-form').screenshot({ path: '/tmp/soulmarke-mobile.png' });
   assert.deepEqual(failures, [], 'frontend has no uncaught JavaScript errors');
-  console.log('PASS: fourteen-question flow, Back, Other validation, max-three choices, multiline Enter, server-error recovery, real submission, privacy, and mobile layout.');
+  console.log('PASS: fourteen-question flow, public branding, theme-resistant palette, keyboard focus, validation colors, Back, Other validation, max-three choices, multiline Enter, server-error recovery, real submission, privacy, and mobile layout.');
   console.log('Screenshots: /tmp/soulmarke-desktop.png and /tmp/soulmarke-mobile.png');
 } finally {
   await browser.close();

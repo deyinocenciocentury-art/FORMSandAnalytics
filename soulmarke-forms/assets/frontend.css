@@ -9,9 +9,9 @@
 .smf-form {
   --smf-blue: #4dafd8;
   --smf-teal: #2a5e6f;
-  --smf-ink: #244754;
-  --smf-muted: #55707a;
-  --smf-line: #dce8ec;
+  --smf-ink: var(--smf-teal);
+  --smf-muted: rgba(42, 94, 111, .85);
+  --smf-line: rgba(42, 94, 111, .18);
   box-sizing: border-box;
   max-width: 880px;
   margin: 40px auto;
@@ -41,13 +41,11 @@
   background: var(--smf-teal);
   isolation: isolate;
 }
-.smf-brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: 0.04em; }
-.smf-brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,.58); border-radius: 50%; font-family: "Bebas Neue", Impact, sans-serif; font-size: 23px; line-height: 1; }
-.smf-banner-copy { position: relative; z-index: 1; max-width: 640px; margin-top: 38px; }
+.smf-banner-copy { position: relative; z-index: 1; max-width: 640px; }
 .smf-form .smf-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-.smf-banner .smf-eyebrow { color: #d7f1fc; }
+.smf-banner .smf-eyebrow { color: rgba(255,255,255,.9); }
 .smf-form h2 { margin: 12px 0 12px; color: white; font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-size: clamp(38px, 6vw, 62px); font-weight: 400; line-height: 1.05; letter-spacing: 0.018em; overflow-wrap: anywhere; }
-.smf-description { max-width: 610px; color: #eef8fc; font-size: 15px; line-height: 1.75; }
+.smf-description { max-width: 610px; color: rgba(255,255,255,.94); font-size: 15px; line-height: 1.75; }
 .smf-banner-orbit { position: absolute; z-index: -1; right: -88px; top: -128px; width: 370px; height: 370px; border: 1px solid rgba(77,175,216,.55); border-radius: 50%; }
 .smf-banner-orbit::before { content: ""; position: absolute; inset: 22px; border: 1px solid rgba(77,175,216,.32); border-radius: 50%; }
 .smf-banner-orbit::after { content: ""; position: absolute; inset: 48px; border: 1px solid rgba(77,175,216,.22); border-radius: 50%; }
@@ -55,7 +53,7 @@
 .smf-progress-area { margin-bottom: 38px; }
 .smf-progress-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: var(--smf-muted); font-size: 12px; font-weight: 600; }
 .smf-progress-percent { color: var(--smf-teal); }
-.smf-progress { height: 5px; overflow: hidden; border-radius: 4px; background: #e7f0f4; }
+.smf-progress { height: 5px; overflow: hidden; border-radius: 4px; background: rgba(77,175,216,.15); }
 .smf-progress-fill { display: block; height: 100%; border-radius: inherit; background: var(--smf-blue); transition: width .25s ease; }
 .smf-question { min-width: 0; margin: 0 0 28px; padding: 0; border: 0; }
 .smf-question-title { display: flex; align-items: flex-start; gap: 14px; float: none; width: 100%; margin: 0 0 10px; padding: 0; color: var(--smf-ink); font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-size: 32px; font-weight: 400; line-height: 1.22; letter-spacing: 0.015em; overflow-wrap: anywhere; }
@@ -64,18 +62,18 @@
 .smf-question-number { flex-shrink: 0; margin-top: 6px; padding-top: 1px; color: var(--smf-teal); font-family: "Avenir Next", Avenir, sans-serif; font-size: 11px; font-weight: 700; line-height: 1.3; letter-spacing: 0.03em; border-top: 2px solid var(--smf-blue); }
 .smf-question-description { display: block; margin: 0 0 23px; color: var(--smf-muted); font-size: 14px; line-height: 1.65; }
 .smf-required-note { display: block; margin-top: 8px; font-size: 11px; letter-spacing: 0.05em; color: var(--smf-muted); }
-.smf-input { display: block; width: 100%; min-height: 56px; margin: 0; padding: 16px 18px; border: 1px solid #c5d9e1; border-radius: 10px; box-shadow: none; color: var(--smf-ink); background: #f9fcfd; font-size: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
-.smf-input::placeholder { color: #6d8791; opacity: 1; }
+.smf-input { display: block; width: 100%; min-height: 56px; margin: 0; padding: 16px 18px; border: 1px solid rgba(42,94,111,.3); border-radius: 10px; box-shadow: none; color: var(--smf-ink); background: rgba(77,175,216,.04); font-size: 16px; transition: border-color .15s ease, box-shadow .15s ease; }
+.smf-input::placeholder { color: var(--smf-muted); opacity: 1; }
 .smf-input:focus { border-color: var(--smf-teal); outline: 0; box-shadow: 0 0 0 3px rgba(42,94,111,.18); background: #fff; }
 .smf-form textarea.smf-input { min-height: 154px; resize: vertical; line-height: 1.65; }
 .smf-select { cursor: pointer; padding-right: 36px; }
 .smf-choices { display: grid; gap: 10px; }
-.smf-choice { position: relative; display: flex; align-items: center; gap: 13px; min-height: 59px; margin: 0; padding: 16px 19px; border: 1px solid var(--smf-line); border-radius: 10px; color: var(--smf-ink); background: #fafcfd; cursor: pointer; font-size: 15px; line-height: 1.6; transition: background .15s, border-color .15s, box-shadow .15s; }
-.smf-choice:hover { border-color: #84c6e1; background: #f0f9fc; }
+.smf-choice { position: relative; display: flex; align-items: center; gap: 13px; min-height: 59px; margin: 0; padding: 16px 19px; border: 1px solid var(--smf-line); border-radius: 10px; color: var(--smf-ink); background: rgba(77,175,216,.03); cursor: pointer; font-size: 15px; line-height: 1.6; transition: background .15s, border-color .15s, box-shadow .15s; }
+.smf-choice:hover { border-color: var(--smf-blue); background: rgba(77,175,216,.08); }
 .smf-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-.smf-choice:has(input:checked) { border-color: var(--smf-blue); background: #ebf7fc; box-shadow: 0 0 0 1px var(--smf-blue); }
+.smf-choice:has(input:checked) { border-color: var(--smf-blue); background: rgba(77,175,216,.12); box-shadow: 0 0 0 1px var(--smf-blue); }
 .smf-choice:has(input:focus-visible) { outline: 3px solid var(--smf-teal); outline-offset: 3px; }
-.smf-choice-indicator { display: grid; place-items: center; flex-shrink: 0; width: 21px; height: 21px; border: 1.5px solid #a6c0cb; border-radius: 50%; background: #fff; }
+.smf-choice-indicator { display: grid; place-items: center; flex-shrink: 0; width: 21px; height: 21px; border: 1.5px solid rgba(42,94,111,.45); border-radius: 50%; background: #fff; }
 .smf-choice input[type="checkbox"] + .smf-choice-indicator { border-radius: 5px; }
 .smf-choice input:checked + .smf-choice-indicator { border-color: var(--smf-teal); background: var(--smf-teal); }
 .smf-choice input:checked + .smf-choice-indicator::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
@@ -89,35 +87,36 @@
 .smf-other { margin-top: 18px; }
 .smf-other label { display: block; margin-bottom: 8px; color: var(--smf-ink); font-size: 14px; font-weight: 600; }
 .smf-navigation { display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-top: 32px; }
-.smf-button { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 52px; margin: 0; padding: 13px 24px; border: 1px solid transparent; border-radius: 9px; background: var(--smf-teal); color: #fff; box-shadow: none; cursor: pointer; font-size: 14px; font-weight: 600; line-height: 1.6; transition: background .15s, transform .15s; }
-.smf-button:hover, .smf-button:focus { background: #204b59; color: #fff; }
-.smf-button:active { transform: translateY(1px); }
-.smf-button-back { margin-right: auto; padding-left: 0; color: var(--smf-muted); background: transparent; }
-.smf-button-back:hover, .smf-button-back:focus { color: var(--smf-teal); background: transparent; }
-.smf-button span { font-size: 20px; font-weight: 400; }
-.smf-button:disabled { cursor: wait; opacity: .65; }
+/* Scoped button rules keep generic WordPress theme button colors and gradients out of the survey. */
+.smf-form .smf-navigation button.smf-button { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 52px; margin: 0; padding: 13px 24px; border: 1px solid var(--smf-teal); border-radius: 9px; background: var(--smf-teal); color: #fff; box-shadow: none; cursor: pointer; font-size: 14px; font-weight: 600; line-height: 1.6; transition: background .15s, border-color .15s, box-shadow .15s, transform .15s; }
+.smf-form .smf-navigation button.smf-button:hover, .smf-form .smf-navigation button.smf-button:focus { background: var(--smf-teal); color: #fff; border-color: var(--smf-blue); box-shadow: inset 0 0 0 1px var(--smf-blue); }
+.smf-form .smf-navigation button.smf-button:focus-visible { outline: 3px solid var(--smf-teal); outline-offset: 4px; }
+.smf-form .smf-navigation button.smf-button:active { transform: translateY(1px); }
+.smf-form .smf-navigation button.smf-button-back { margin-right: auto; padding-left: 0; color: var(--smf-teal); background: #fff; border-color: transparent; }
+.smf-form .smf-navigation button.smf-button-back:hover, .smf-form .smf-navigation button.smf-button-back:focus { color: var(--smf-teal); background: rgba(77,175,216,.12); border-color: transparent; box-shadow: none; }
+.smf-form .smf-navigation button.smf-button span { font-size: 20px; font-weight: 400; }
+.smf-form .smf-navigation button.smf-button:disabled { cursor: wait; opacity: .65; }
 .smf-keyboard-hint { margin-top: 19px !important; color: var(--smf-muted); font-size: 11px; line-height: 1.6; text-align: right; }
-.smf-field-error { margin-top: 10px !important; color: #a32929; font-size: 13px; }
-.smf-invalid .smf-input, .smf-invalid .smf-choice { border-color: #b24040; }
+.smf-form .smf-field-error { margin-top: 10px !important; color: var(--smf-teal); font-size: 13px; font-weight: 600; }
+.smf-form .smf-invalid .smf-input, .smf-form .smf-invalid .smf-choice { border-color: var(--smf-teal); }
 .smf-status { margin-top: 20px !important; color: var(--smf-muted); font-size: 14px; }
 .smf-status:empty { margin: 0 !important; }
-.smf-status-error { color: #a32929; }
+.smf-form .smf-status-error { color: var(--smf-teal); font-weight: 600; }
 .smf-privacy { display: flex; align-items: center; justify-content: center; gap: 7px; margin-top: 32px !important; padding-top: 20px; border-top: 1px solid var(--smf-line); color: var(--smf-muted); font-size: 11px; line-height: 1.6; }
 .smf-privacy svg { flex-shrink: 0; width: 13px; height: 13px; }
 .smf-success, .smf-empty { padding: 22px 0 36px; text-align: center; }
-.smf-success-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%; background: #eaf7fb; color: var(--smf-teal); font-size: 28px; }
+.smf-success-icon { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%; background: rgba(77,175,216,.12); color: var(--smf-teal); font-size: 28px; }
 .smf-success .smf-eyebrow, .smf-empty .smf-eyebrow { color: var(--smf-teal); }
 .smf-form .smf-success h3, .smf-form .smf-empty h3 { margin: 12px 0 14px; color: var(--smf-ink); font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-size: 40px; font-weight: 400; line-height: 1.15; letter-spacing: 0.015em; }
 .smf-success-message, .smf-empty p { color: var(--smf-muted); font-size: 15px; }
 .smf-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-.smf-noscript { padding: 15px; border: 1px solid #c5d9e1; border-radius: 8px; background: #f0f9fc; }
+.smf-noscript { padding: 15px; border: 1px solid rgba(42,94,111,.3); border-radius: 8px; background: rgba(77,175,216,.08); }
 .smf-form:not(.smf-enhanced) .smf-question-form { display: none; }
 .smf-form:not(.smf-enhanced) .smf-progress-area { display: none; }
 
 @media (max-width: 600px) {
   .smf-form { margin: 20px auto; border-radius: 16px; }
   .smf-banner { padding: 27px 25px 32px; }
-  .smf-banner-copy { margin-top: 30px; }
   .smf-banner-orbit { right: -170px; }
   .smf-body { padding: 28px 25px 23px; }
   .smf-progress-area { margin-bottom: 29px; }
@@ -127,8 +126,8 @@
   .smf-rating { gap: 7px; }
   .smf-rating .smf-choice { min-height: 64px; padding: 10px 5px; font-size: 20px; }
   .smf-navigation { gap: 8px; margin-top: 27px; }
-  .smf-button { gap: 12px; padding: 12px 18px; font-size: 13px; }
-  .smf-button-back { padding-left: 0; padding-right: 6px; }
+  .smf-form .smf-navigation button.smf-button { gap: 12px; padding: 12px 18px; font-size: 13px; }
+  .smf-form .smf-navigation button.smf-button-back { padding-left: 0; padding-right: 6px; }
   .smf-privacy { align-items: flex-start; text-align: center; }
   .smf-privacy svg { margin-top: 2px; }
 }

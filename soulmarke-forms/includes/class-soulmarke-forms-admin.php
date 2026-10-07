@@ -20,7 +20,7 @@ class Soulmarke_Forms_Admin {
     }
 
     public static function menu() {
-        add_menu_page('Soulmarke Forms', 'Soulmarke Forms', self::CAPABILITY, 'soulmarke-forms', array(__CLASS__, 'dashboard'), 'dashicons-feedback', 26);
+        add_menu_page('Holistic Collective Forms', 'Holistic Collective Forms', self::CAPABILITY, 'soulmarke-forms', array(__CLASS__, 'dashboard'), 'dashicons-feedback', 26);
         add_submenu_page('soulmarke-forms', 'Analytics', 'Analytics', self::CAPABILITY, 'soulmarke-forms', array(__CLASS__, 'dashboard'));
         add_submenu_page('soulmarke-forms', 'Submissions', 'Submissions', self::CAPABILITY, 'soulmarke-submissions', array(__CLASS__, 'submissions'));
         add_submenu_page('soulmarke-forms', 'Compare submissions', 'Compare', self::CAPABILITY, 'soulmarke-compare', array(__CLASS__, 'compare'));
@@ -73,7 +73,7 @@ class Soulmarke_Forms_Admin {
 
     private static function header($active, $title, $description) {
         self::authorize();
-        echo '<div class="wrap soulmarke-admin"><header class="sm-admin-header"><div><p class="sm-eyebrow">SOULMARKE · PRACTITIONER DISCOVERY</p><h1>' . esc_html($title) . '</h1><p>' . esc_html($description) . '</p></div><span class="sm-private"><span class="dashicons dashicons-lock" aria-hidden="true"></span> Private workspace</span></header>';
+        echo '<div class="wrap soulmarke-admin"><header class="sm-admin-header"><div><p class="sm-eyebrow">HOLISTIC COLLECTIVE · PRACTITIONER DISCOVERY</p><h1>' . esc_html($title) . '</h1><p>' . esc_html($description) . '</p></div><span class="sm-private"><span class="dashicons dashicons-lock" aria-hidden="true"></span> Private workspace</span></header>';
         echo '<nav class="sm-admin-tabs" aria-label="Survey administration">';
         $pages = array('soulmarke-forms' => 'Analytics', 'soulmarke-submissions' => 'Submissions', 'soulmarke-compare' => 'Compare', 'soulmarke-settings' => 'Questions & settings');
         foreach ($pages as $page => $label) {

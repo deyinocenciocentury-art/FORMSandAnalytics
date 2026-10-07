@@ -48,7 +48,6 @@ final class Soulmarke_Forms_Frontend {
 		?>
 		<section class="smf-form" id="<?php echo esc_attr( $instance ); ?>" aria-labelledby="<?php echo esc_attr( $instance . '-title' ); ?>">
 			<div class="smf-banner">
-				<div class="smf-brand"><span class="smf-brand-mark" aria-hidden="true">S</span><span>Soulmarke</span></div>
 				<div class="smf-banner-copy">
 					<p class="smf-eyebrow"><?php esc_html_e( 'A moment for your perspective', 'soulmarke-forms' ); ?></p>
 					<h2 id="<?php echo esc_attr( $instance . '-title' ); ?>"><?php echo esc_html( $settings['title'] ); ?></h2>

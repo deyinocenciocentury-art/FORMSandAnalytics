@@ -1,10 +1,9 @@
-=== Soulmarke Forms & Analytics ===
-Contributors: soulmarke
+=== Holistic Collective Forms & Analytics ===
 Tags: survey, forms, analytics, notifications, shortcode
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,17 +11,17 @@ A one-question-at-a-time practitioner survey with editable questions, private su
 
 == Description ==
 
-Soulmarke Forms & Analytics includes the 14 questions from the supplied Holistic Collective Practitioner Discovery Survey. The introduction, thank-you message, questions, answer choices, required fields, and notification recipients are editable in WordPress administration.
+Holistic Collective Forms & Analytics includes the 14 questions from the supplied Holistic Collective Practitioner Discovery Survey. The introduction, thank-you message, questions, answer choices, required fields, and notification recipients are editable in WordPress administration.
 
 The frontend uses the supplied brand colors #4dafd8, #2a5e6f, and white. Visitors answer one question at a time, move back to revise answers, and review their answers before submitting. Questions that ask respondents to choose “Other” or “Something else” can request extra detail. Multiple-choice questions can have a maximum number of selections.
 
-All results, analytics, settings, comparisons, CSV exports, and deletion actions require the WordPress manage_options capability, which administrators have by default. No public results endpoint is provided.
+All WordPress results screens, analytics, settings, comparisons, CSV exports, and deletion actions require the WordPress manage_options capability, which administrators have by default. No public results endpoint is provided.
 
 == Installation ==
 
 1. In WordPress, go to Plugins > Add New Plugin > Upload Plugin.
-2. Upload soulmarke-forms.zip, install it, and activate Soulmarke Forms & Analytics.
-3. Open Soulmarke Forms > Questions & settings to review your survey and notification recipients.
+2. Upload soulmarke-forms.zip, install it, and activate Holistic Collective Forms & Analytics.
+3. Open Holistic Collective Forms > Questions & settings to review your survey and notification recipients.
 4. Edit or create a page and add a Shortcode block containing [soulmarke_form].
 5. Publish the page and complete a test submission. Check the private submissions screen and your notification inboxes.
 
@@ -34,7 +33,7 @@ No build step, third-party form service, or frontend account is required. Instal
 
 = Questions and recipients =
 
-The default notification recipients are andrea@soulmarke.com and Coral@soulmarke.com. Change them under Soulmarke Forms > Questions & settings, using one address per line or comma-separated addresses. Leave the field empty to disable notifications.
+The default notification recipients are andrea@soulmarke.com and Coral@soulmarke.com. Change them under Holistic Collective Forms > Questions & settings, using one address per line or comma-separated addresses. Leave the field empty to disable notifications.
 
 You can add, edit, reorder, and remove questions. Supported formats are short text, long text, email, number, choose one, choose multiple, dropdown, and a rating from 1 to 5. Set a question as required when it must be answered. For a multiple-choice question, set maximum selections to 0 to allow any number of choices.
 
@@ -44,9 +43,9 @@ Existing submissions keep a snapshot of the questions and answer choices used wh
 
 = Private results and analytics =
 
-Soulmarke Forms > Submissions lists saved responses and their notification status. Read a submission to see its original questions and answers. Use date and answer-search filters to find responses; dates use the WordPress site timezone.
+Holistic Collective Forms > Submissions lists saved responses and their notification status. Read a submission to see its original questions and answers. Use date and answer-search filters to find responses; dates use the WordPress site timezone.
 
-Soulmarke Forms > Compare displays two or three submissions side by side and highlights differing answers, including extra detail for Other choices.
+Holistic Collective Forms > Compare displays two or three submissions side by side and highlights differing answers, including extra detail for Other choices.
 
 The analytics dashboard shows submission totals, daily activity, answer distributions, recent text samples, and averages for numeric and rating questions. Multiple-choice percentages use the number of respondents who answered that question, so percentages may total more than 100% when multiple answers are allowed.
 
@@ -54,7 +53,7 @@ Export CSV downloads private results for the selected date and answer-search fil
 
 = Notifications =
 
-Notifications are sent using WordPress wp_mail. “Email accepted for delivery” means wp_mail accepted the message; it does not confirm inbox delivery. Configure and test a suitable WordPress SMTP or transactional mail service on your production website. A failed email does not erase the saved submission; the results screen shows the failure.
+Notifications include the original survey questions and all submitted answers, including multiple-choice selections and extra detail for Other choices. Skipped questions are marked as unanswered. Each email includes the submission time and a link to the private WordPress record. Notifications are sent using WordPress wp_mail. “Email accepted for delivery” means wp_mail accepted the message; it does not confirm inbox delivery. Configure and test a suitable WordPress SMTP or transactional mail service on your production website. A failed email does not erase the saved submission; the results screen shows the failure.
 
 == Data and privacy ==
 
@@ -76,7 +75,7 @@ Descriptions and interface body text request Avenir or Avenir Next when installe
 
 = Where do I find submissions? =
 
-In WordPress administration, open Soulmarke Forms > Submissions. Access requires manage_options. The public shortcode renders the form only.
+In WordPress administration, open Holistic Collective Forms > Submissions. Access requires manage_options. The public shortcode renders the form only.
 
 = Can I change the questions after collecting responses? =
 
@@ -91,6 +90,12 @@ Yes. Each page with [soulmarke_form] displays the same configured survey and sub
 No. The plugin saves a submission before sending notifications. Check its status in the private results screen and troubleshoot WordPress email delivery if needed.
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Removed Soulmarke branding from the public form and updated the plugin display name.
+* Applied the blue, teal, and white palette to buttons and validation states.
+* Included original questions, answers, Other details, and submission time in notification emails.
 
 = 1.0.0 =
 
